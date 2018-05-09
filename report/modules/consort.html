@@ -27,7 +27,7 @@ function F__ID(){
 		sql+=",eligbility  as (select e_PUID=PUID from [TABLE-20009190])";
 
 
-		sql+=" select sort=1,Name='Registered online',Number=count(ID) from tb where S<>'TEST' and S<>'DUPLICATE' "
+		sql+=" select sort=1,Name='Registered online',Number=count(ID) from tb where S<>'TEST' and S<>'DUPLICATE' and S<>' ' "
 		sql+=" union select sort=2,Name='Started Questionnaire',Number=count(ID) from [TABLE-20009060] where PUID>29 "
     sql+=" union select sort=2,Name='Started Questionnaire',Number=count(ID) from [TABLE-20009060] where PUID>29 "
 

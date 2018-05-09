@@ -3,7 +3,7 @@
         <a id=back__ID>Back</a>
         <a id=aquery__ID >Query</a>
         <a id=export__ID >Export</a>
-    	<span class=tab__ID></span>Screening Completion
+    	<span class=tab__ID></span>Screen Fail
         <span class=tab__ID></span>
     </div>
     <div id=table__ID>
@@ -16,25 +16,28 @@ function F__ID(){
     VmInclude:__PARTS__/grid/grid.js
     VmInclude:__PARTS__/style/ease-in-out.js
     //------------------------
-	_fields="Registration_ID|PUID,First_Name,Last_Name,Complete Time|DateTime";
+	//_fields="Partcipant|UID,Insomnia|PUID,Elibility|e_PUID";
+	_fields="Hmm";
 	//-------------------------------------
 	$('#aquery__ID').on('click',function(){_set_req(); _request_data();})
 	//-------------------------------------
-	//var registration_tid=_mlist[_ids.registration].table_id;
-	//var screening_participant_tid=_mlist[_ids.screening_participant].table_id;
-
 	_set_req=_set_req_export=function(){
-		var sql="with registration as (select UID,Information from [TABLE-20008858])";
-		sql+=", screening_participant as (select registration_id=@('Registration_ID') from [TABLE-20009058])";
-		sql+=", participant as (select UID, Information from registration join screening_participant on UID=registration_id)";
-		sql+=",complete_quest as( select PUID,DateTime from [TABLE-20008713] WHERE PUID >29) ";
-		sql+=" select PUID, Information,DateTime from complete_quest join participant on PUID=UID order by DateTime";
+		//-----------------
+
+		var sql="Select* from [TABLE-20009058]";
+
+		//-----------------
+		/*
+		var sql="with participant as (select UID from [TABLE-20009058] where UID>=30)";
+		sql+=",screening_insomnia as (select PUID from [TABLE-20009064])";
+		sql+=",elibility  as (select e_PUID=PUID from [TABLE-20009190])";
+		//sql+=" select UID,PUID,e_PUID from participant join screening_insomnia on UID=PUID left join elibility on UID=e_PUID where e_PUID is NULL"
+		sql+=" select Number=count(UID) from participant join screening_insomnia on UID=PUID left join elibility on UID=e_PUID where e_PUID is NULL"
+*/
+		//-----------------
 	    _req={cmd:'query_records',sql:sql}
 	}
 	//-------------------------------------
-
-
-
 }
 </script>
 <style>
